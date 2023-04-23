@@ -1,15 +1,20 @@
+import { useState } from 'react'
+import { Toastify } from './Toastify.jsx'
+
 const App = () => {
+  const [message, setMessage] = useState('')
+  const handlerOnChange = (e) => setMessage(e.target.value)
+
   return (
-    <div className='w-64 h-12 bg-gray-800 rounded-sm flex items-center'>
-      <div className='w-4 h-full bg-green-500' />
-      <div className='p-3 w-full h-full overflow-hidden flex items-center justify-between gap-3'>
-        <span className='w-11/12 text-white font-semibold truncate'>
-          Hola, este es un mensaje! saddddasdddddddd aaaaaaaaaaaaaaaaaaaaa dasda
-        </span>
-        <div className='w-1/12 text-red-500 font-bold flex justify-center'>
-          x
-        </div>
-      </div>
+    <div className='flex flex-col items-center gap-16'>
+      <input
+        className='py-2 px-4 w-96 bg-zinc-700 rounded-sm text-white placeholder:text-gray-200 text-center'
+        type='text'
+        placeholder='Escribe algo...'
+        value={message}
+        onChange={handlerOnChange}
+      />
+      <Toastify message={message} />
     </div>
   )
 }
