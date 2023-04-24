@@ -1,41 +1,10 @@
-import { useState } from 'react'
-import { Toast } from './Toastify.jsx'
+import { useContext, useState } from 'react'
+import { ToastContext, ToastConsumer } from './context/ToastProvider.jsx'
 
-const Toasts = ({ toasts, removeToast }) => {
-  return (
-    <div className='max-h-64 overflow-auto toast_scroll flex flex-col gap-5'>
-      {
-        toasts.length > 0 && (
-          toasts.map((toast, index) => {
-            return (
-              <Toast
-                key={`toasty-${index}`}
-                type={toast.type}
-                message={toast.message}
-                onClose={() => removeToast(index)}
-              />
-            )
-          })
-        )
-      }
-    </div>
-  )
-}
-
-const App = () => {
-  const [toasts, setToasts] = useState([])
+export const App = () => {
+  const { addToast } = useContext(ToastContext)
   const [message, setMessage] = useState('')
   const handlerOnChange = (e) => setMessage(e.target.value)
-
-  const addToast = (message, type) => setToasts(prev => [...prev, { message, type }])
-
-  const removeToast = (index) => {
-    setToasts(prev => {
-      const updateToasts = [...prev]
-      updateToasts.splice(index, 1)
-      return [...updateToasts]
-    })
-  }
 
   return (
     <div className='flex flex-col items-center gap-16'>
@@ -54,9 +23,7 @@ const App = () => {
           +
         </button>
       </div>
-      <Toasts toasts={toasts} removeToast={removeToast} />
+      <ToastConsumer />
     </div>
   )
 }
-
-export default App

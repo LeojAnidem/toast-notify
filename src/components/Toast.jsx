@@ -1,8 +1,5 @@
 import { useState } from 'react'
-
-const fnSet = (setHook) => {
-  return (keyName, val) => setHook(prev => ({ ...prev, [keyName]: val }))
-}
+import { fnSet } from '../utils/hookManager'
 
 export const Toast = ({ message, type, onClose }) => {
   const [config, setConfig] = useState({
