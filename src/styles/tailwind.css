@@ -1,3 +1,27 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+.toast-bg {
+  @apply cursor-pointer flex items-center 
+  bg-gray-800 rounded-sm
+  transition-all duration-500
+}
+
+.toast_text-bg {
+  @apply p-3 w-full h-full overflow-hidden
+  flex items-center justify-between gap-3
+}
+
+.toast_text {
+  @apply h-full w-11/12 text-white font-semibold transition-all
+}
+
+.toast_close {
+  @apply w-1/12 text-red-500 font-bold flex justify-center
+}
+
+.toast_scroll {
+  @apply pe-3 overflow-y-auto scrollbar-thin 
+  scrollbar-thumb-slate-500 scrollbar-track-gray-700
+}
