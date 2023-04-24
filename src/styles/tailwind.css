@@ -18,7 +18,7 @@
 }
 
 .toast_close {
-  @apply w-1/12 text-red-500 font-bold flex justify-center
+  @apply w-1/12 text-red-500 font-bold flex justify-center transition-all
 }
 
 .toast_scroll {

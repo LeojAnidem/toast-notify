@@ -4,46 +4,63 @@ const fnSet = (setHook) => {
   return (keyName, val) => setHook(prev => ({ ...prev, [keyName]: val }))
 }
 
-export const Toastify = ({ message }) => {
-  const [hover, setHover] = useState({ height: false, width: false, scroll: false })
-  const { height, width, scroll } = hover
-  const setVal = fnSet(setHover)
+export const Toast = ({ message, type, onClose }) => {
+  const [config, setConfig] = useState({
+    moreHeight: false,
+    moreWidth: false,
+    moreScroll: false,
+    isClose: false
+  })
+  const { moreHeight, moreWidth, moreScroll, isClose } = config
+  const setVal = fnSet(setConfig)
 
   const handlerMouseEnter = () => {
     console.log(message.length)
-    if (message.length > 24) setVal('height', true)
-    if (message.length > 60) setVal('width', true)
-    if (message.length > 76) setVal('scroll', true)
+    if (message.length > 24) setVal('moreHeight', true)
+    if (message.length > 60) setVal('moreWidth', true)
+    if (message.length > 68) setVal('moreScroll', true)
   }
 
   const handlerMouseLeave = () => {
-    setVal('height', false)
-    setVal('width', false)
-    setVal('scroll', false)
+    setVal('moreHeight', false)
+    setVal('moreWidth', false)
+    setVal('moreScroll', false)
+  }
+
+  const handlerClose = () => {
+    setVal('isClose', true)
+    onClose()
   }
 
   return (
-    <div
-      className={`
-        ${width ? 'w-72' : 'w-64'} ${height ? 'h-24' : 'h-12'}
-        toast-bg
-      `}
-      onMouseEnter={handlerMouseEnter}
-      onMouseLeave={handlerMouseLeave}
-    >
-      <div className={`w-4 h-full ${'bg-green-500'}`} />
-      <div className='toast_text-bg'>
-        <span
-          className={`
-            toast_text
-            ${height ? 'flex' : 'truncate'}
-            ${scroll ? 'toast_scroll' : 'items-center'}
-          `}
-        >
-          {message}
-        </span>
-        <div className='toast_close'>x</div>
+    !isClose && (
+      <div
+        className={`
+          ${moreWidth ? 'w-72' : 'w-64'} ${moreHeight ? 'h-24' : 'h-12'}
+          toast-bg
+        `}
+        onMouseEnter={handlerMouseEnter}
+        onMouseLeave={handlerMouseLeave}
+      >
+        <div className={`w-4 h-full ${'bg-green-500'}`} />
+        <div className='toast_text-bg'>
+          <span
+            className={`
+              toast_text
+              ${moreHeight ? 'flex' : 'truncate'}
+              ${moreScroll ? 'toast_scroll' : 'items-center'}
+            `}
+          >
+            {message}
+          </span>
+          <button
+            className='toast_close'
+            onClick={handlerClose}
+          >
+            x
+          </button>
+        </div>
       </div>
-    </div>
+    )
   )
 }
