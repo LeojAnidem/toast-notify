@@ -1,20 +1,24 @@
 import { createContext, useContext, useState } from 'react'
 import { Toast } from '../components/Toast.jsx'
+import { generateUniqueId } from '../utils/generateUniqueId.js'
 
 export const ToastContext = createContext()
 
 export const ToastProvider = ({ children }) => {
   const [toasts, setToasts] = useState([])
+  const toastIds = []
 
-  const addToast = (message, type) => setToasts(prev => [...prev, { message, type }])
+  const addToast = (message, type) => {
+    const toast = {
+      id: generateUniqueId(toastIds),
+      message,
+      type
+    }
 
-  const removeToast = (index) => {
-    setToasts(prev => {
-      const updateToasts = [...prev]
-      updateToasts.splice(index, 1)
-      return [...updateToasts]
-    })
+    setToasts(prev => [...prev, toast])
   }
+
+  const removeToast = (id) => setToasts(prev => prev.filter(toast => toast.id !== id))
 
   return (
     <ToastContext.Provider value={{ toasts, addToast, removeToast }}>
@@ -30,13 +34,13 @@ export const ToastConsumer = () => {
     <div className='max-h-64 overflow-auto toast_scroll flex flex-col gap-5'>
       {
         toasts.length > 0 && (
-          toasts.map((toast, index) => {
+          toasts.map((toast) => {
             return (
               <Toast
-                key={`toasty-${index}`}
+                key={`toast-${toast.id}`}
                 type={toast.type}
                 message={toast.message}
-                onClose={() => removeToast(index)}
+                onClose={() => removeToast(toast.id)}
               />
             )
           })

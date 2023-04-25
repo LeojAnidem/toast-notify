@@ -12,7 +12,6 @@ export const Toast = ({ message, type, onClose }) => {
   const setVal = fnSet(setConfig)
 
   const handlerMouseEnter = () => {
-    console.log(message.length)
     if (message.length > 24) setVal('moreHeight', true)
     if (message.length > 60) setVal('moreWidth', true)
     if (message.length > 68) setVal('moreScroll', true)
