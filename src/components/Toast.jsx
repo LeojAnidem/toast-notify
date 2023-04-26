@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { fnSet } from '../utils/hookManager'
 
-export const Toast = ({ message, type, onClose }) => {
+export const Toast = ({ message, colorType, onClose }) => {
   const [config, setConfig] = useState({
     moreHeight: false,
     moreWidth: false,
@@ -38,7 +38,7 @@ export const Toast = ({ message, type, onClose }) => {
         onMouseEnter={handlerMouseEnter}
         onMouseLeave={handlerMouseLeave}
       >
-        <div className={`w-4 h-full ${'bg-green-500'}`} />
+        <div className={`w-4 h-full bg-${colorType}`} />
         <div className='toast_text-bg'>
           <span
             className={`
