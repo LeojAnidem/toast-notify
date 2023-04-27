@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { fnSet } from '../utils/hookManager'
 
-export const Toast = ({ message, colorType, onClose }) => {
+export const Toast = ({ message, colorType, onClose, onMouseEnter }) => {
   const [config, setConfig] = useState({
     moreHeight: false,
     moreWidth: false,
@@ -12,6 +12,7 @@ export const Toast = ({ message, colorType, onClose }) => {
   const setVal = fnSet(setConfig)
 
   const handlerMouseEnter = () => {
+    onMouseEnter()
     if (message.length > 24) setVal('moreHeight', true)
     if (message.length > 60) setVal('moreWidth', true)
     if (message.length > 68) setVal('moreScroll', true)

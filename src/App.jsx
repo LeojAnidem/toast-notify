@@ -3,22 +3,25 @@ import { ToastContext, ToastConsumer } from './context/ToastProvider.jsx'
 import { fnSet } from './utils/hookManager.js'
 
 export const App = () => {
-  const { addToast, toastTypes } = useContext(ToastContext)
+  const { addToast, toastTypes, toastDirection } = useContext(ToastContext)
   const [toast, setToast] = useState({
     message: '',
-    type: toastTypes[0].value
+    type: toastTypes[0].value,
+    direction: toastDirection[0].direction
   })
 
-  const { message, type } = toast
+  const { message, type, direction } = toast
   const setVal = fnSet(setToast)
 
   const handlerOnChange = (e) => setVal('message', e.target.value)
-  const handlerSelect = (e) => setVal('type', e.target.value)
+  const handlerType = (e) => setVal('type', e.target.value)
+  const handlerDirection = (e) => setVal('direction', e.target.value)
 
   const handlerSubmit = (e) => {
     e.preventDefault()
     addToast(message, type)
-    setToast(() => ({
+    setToast((prev) => ({
+      ...prev,
       message: '',
       type: toastTypes[0].value
     }))
@@ -32,7 +35,7 @@ export const App = () => {
       >
         <div className='grid grid-cols-3 gap-3 items-center'>
           <input
-            className='p-2 col-span-2 bg-zinc-700 rounded-md placeholder:text-gray-200 text-center'
+            className='p-2 col-span-3 bg-zinc-700 rounded-md placeholder:text-gray-200 text-center'
             type='text'
             placeholder='Escribe algo...'
             value={message}
@@ -41,7 +44,7 @@ export const App = () => {
           <select
             className='px-2 py-1 cursor-pointer bg-slate-200 text-slate-700 rounded-md'
             value={type}
-            onChange={handlerSelect}
+            onChange={handlerType}
           >
             {
               toastTypes.map(type => {
@@ -56,6 +59,25 @@ export const App = () => {
               })
             }
           </select>
+          <select
+            className='px-2 py-1 col-span-2 cursor-pointer bg-slate-200 text-slate-700 rounded-md'
+            value={direction}
+            onChange={handlerDirection}
+          >
+            {
+              toastDirection.map(dir => {
+                console.log(dir)
+                return (
+                  <option
+                    key={`option-${dir.value}`}
+                    value={dir.direction}
+                  >
+                    {dir.message}
+                  </option>
+                )
+              })
+            }
+          </select>
         </div>
         <button
           className='w-8 h-8 bg-green-500 text-xl font-extrabold rounded-md'
@@ -64,7 +86,7 @@ export const App = () => {
           +
         </button>
       </form>
-      <ToastConsumer />
+      <ToastConsumer direction={direction} />
     </div>
   )
 }
