@@ -1,4 +1,4 @@
-import { createContext, useContext, useState } from 'react'
+import { createContext, useContext, useRef, useState } from 'react'
 import { generateUniqueId } from '../utils/generateUniqueId.js'
 import { Toast } from '../components/Toast.jsx'
 
@@ -82,28 +82,36 @@ export const ToastProvider = ({ children }) => {
 
 export const ToastConsumer = ({ direction }) => {
   const { toasts, removeToast } = useContext(ToastContext)
+  const toastBgRef = useRef(null)
+  const toastChildRefs = useRef([])
 
-  const focusChildren = (id) => {
+  const focusChildren = (index) => {
+    const childPos = toastChildRefs.current[index].getBoundingClientRect()
+    const containerPos = toastBgRef.current.getBoundingClientRect()
+    const offset = childPos.top - containerPos.top
 
+    toastBgRef.current.scrollTop = offset
   }
 
   return (
     <div
+      ref={toastBgRef}
       className={`
         max-h-28 overflow-auto toast_scroll flex flex-col gap-2
-        ${direction}
+        ${direction} scroll-smooth transition-all
       `}
     >
       {
         toasts.length > 0 && (
-          toasts.map((toast) => {
+          toasts.map((toast, index) => {
             return (
               <Toast
+                ref={(el) => { toastChildRefs.current[index] = el }}
                 key={`toast-${toast.id}`}
                 colorType={toast.color}
                 message={toast.message}
                 onClose={() => removeToast(toast.id)}
-                onMouseEnter={() => focusChildren(toast.id)}
+                onMouseEnter={() => focusChildren(index)}
               />
             )
           })

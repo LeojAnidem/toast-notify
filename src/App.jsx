@@ -66,7 +66,6 @@ export const App = () => {
           >
             {
               toastDirection.map(dir => {
-                console.log(dir)
                 return (
                   <option
                     key={`option-${dir.value}`}

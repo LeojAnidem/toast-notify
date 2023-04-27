@@ -1,7 +1,7 @@
-import { useState } from 'react'
+import { forwardRef, useState } from 'react'
 import { fnSet } from '../utils/hookManager'
 
-export const Toast = ({ message, colorType, onClose, onMouseEnter }) => {
+export const Toast = forwardRef(({ message, colorType, onClose, onMouseEnter }, ref) => {
   const [config, setConfig] = useState({
     moreHeight: false,
     moreWidth: false,
@@ -32,6 +32,7 @@ export const Toast = ({ message, colorType, onClose, onMouseEnter }) => {
   return (
     !isClose && (
       <div
+        ref={ref}
         className={`
           ${moreWidth ? 'w-72' : 'w-64'} ${moreHeight ? 'h-24' : 'h-12'}
           toast-bg
@@ -60,4 +61,4 @@ export const Toast = ({ message, colorType, onClose, onMouseEnter }) => {
       </div>
     )
   )
-}
+})
