@@ -1,7 +1,8 @@
 import { forwardRef, useEffect, useRef, useState } from 'react'
+import PropTypes from 'prop-types'
 import { fnSet } from '../utils/hookManager'
 
-export const Toast = forwardRef(({ message, colorType, onClose, onMouseEnter }, ref) => {
+export const Toast = forwardRef(({ message, color, onClose, onMouseEnter }, ref) => {
   const duration = 5
   const timerIntervalRef = useRef(null)
   const [config, setConfig] = useState({
@@ -82,7 +83,7 @@ export const Toast = forwardRef(({ message, colorType, onClose, onMouseEnter }, 
       >
         <div
           className='w-4 h-full'
-          style={{ backgroundColor: `${colorType}` }}
+          style={{ backgroundColor: `${color}` }}
         />
         <div className='toast_text-bg'>
           <span
@@ -109,3 +110,15 @@ export const Toast = forwardRef(({ message, colorType, onClose, onMouseEnter }, 
     )
   )
 })
+
+Toast.propTypes = {
+  message: PropTypes.string,
+  color: PropTypes.string,
+  onClose: PropTypes.func,
+  onMouseEnter: PropTypes.func
+}
+
+Toast.defaultProps = {
+  message: 'Message y Tal!',
+  color: '#7f7f'
+}

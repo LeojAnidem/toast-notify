@@ -4,7 +4,7 @@
 
 .toast-bg {
   @apply cursor-pointer flex items-center 
-  bg-gray-800 rounded-sm
+  bg-gray-800 rounded-sm relative shadow-custom
   transition-all duration-500
 }
 
@@ -24,4 +24,8 @@
 .toast_scroll {
   @apply pe-3 overflow-y-auto scrollbar-thin 
   scrollbar-thumb-slate-500 scrollbar-track-gray-700
+}
+
+.toast_loading {
+  @apply absolute h-1 w-full -bottom-1 bg-slate-600 ease-in-out
 }

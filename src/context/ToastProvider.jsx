@@ -108,7 +108,7 @@ export const ToastConsumer = ({ direction }) => {
               <Toast
                 ref={(el) => { toastChildRefs.current[index] = el }}
                 key={`toast-${toast.id}`}
-                colorType={toast.color}
+                color={toast.color}
                 message={toast.message}
                 onClose={() => removeToast(toast.id)}
                 onMouseEnter={() => focusChildren(index)}
