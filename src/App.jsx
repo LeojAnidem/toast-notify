@@ -30,7 +30,7 @@ export const App = () => {
   return (
     <div className='flex flex-col items-center gap-16'>
       <form
-        className='flex items-center gap-5 text-white'
+        className='p-4 flex items-center gap-5 text-white border border-gray-400 rounded-md'
         onSubmit={handlerSubmit}
       >
         <div className='grid grid-cols-3 gap-3 items-center'>
