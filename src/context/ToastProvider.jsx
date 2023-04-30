@@ -11,12 +11,12 @@ export const ToastProvider = ({ children }) => {
     {
       message: 'Correcto',
       value: 'success',
-      color: 'green-500'
+      color: '#22C55E'
     },
     {
       message: 'Error',
       value: 'error',
-      color: 'red-500'
+      color: '#EF4444'
     }
   ]
 
@@ -81,9 +81,10 @@ export const ToastProvider = ({ children }) => {
 }
 
 export const ToastConsumer = ({ direction }) => {
-  const { toasts, removeToast } = useContext(ToastContext)
+  const { toasts, removeToast, toastDirection } = useContext(ToastContext)
   const toastBgRef = useRef(null)
   const toastChildRefs = useRef([])
+  const dir = toastDirection.filter(dir => dir.value === direction)[0]
 
   const focusChildren = (index) => {
     const childPos = toastChildRefs.current[index].getBoundingClientRect()
@@ -97,8 +98,8 @@ export const ToastConsumer = ({ direction }) => {
     <div
       ref={toastBgRef}
       className={`
-        max-h-28 overflow-auto toast_scroll flex flex-col gap-2
-        ${direction} scroll-smooth transition-all
+        max-h-28 overflow-y-auto overflow-x-hidden toast_scroll flex flex-col gap-2
+        ${dir.direction ?? ''} scroll-smooth transition-all
       `}
     >
       {
@@ -112,6 +113,7 @@ export const ToastConsumer = ({ direction }) => {
                 message={toast.message}
                 onClose={() => removeToast(toast.id)}
                 onMouseEnter={() => focusChildren(index)}
+                direction={dir.value}
               />
             )
           })

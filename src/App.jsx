@@ -7,7 +7,7 @@ export const App = () => {
   const [toast, setToast] = useState({
     message: '',
     type: toastTypes[0].value,
-    direction: toastDirection[0].direction
+    direction: toastDirection[0].value
   })
 
   const { message, type, direction } = toast
@@ -69,7 +69,7 @@ export const App = () => {
                 return (
                   <option
                     key={`option-${dir.value}`}
-                    value={dir.direction}
+                    value={dir.value}
                   >
                     {dir.message}
                   </option>
