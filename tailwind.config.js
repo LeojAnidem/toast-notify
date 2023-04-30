@@ -17,16 +17,6 @@ export default {
         fadeOut: {
           '0%': { opacity: '1' },
           '100%': { opacity: '0' }
-        },
-        fadeOutLeft: {
-          '0%': {
-            opacity: '1',
-            transform: 'translateX(0px)'
-          },
-          '100%': {
-            opacity: '0',
-            transform: 'translateX(80px)'
-          }
         }
       }
     }

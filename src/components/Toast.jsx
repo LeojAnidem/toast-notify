@@ -1,10 +1,7 @@
 import { forwardRef, useEffect, useRef, useState } from 'react'
 import { fnSet } from '../utils/hookManager'
 
-export const Toast = forwardRef(({
-  message, colorType, onClose,
-  onMouseEnter, direction
-}, ref) => {
+export const Toast = forwardRef(({ message, colorType, onClose, onMouseEnter }, ref) => {
   const duration = 5
   const timerIntervalRef = useRef(null)
   const [config, setConfig] = useState({
@@ -77,7 +74,7 @@ export const Toast = forwardRef(({
         ref={ref}
         className={`
           ${moreWidth ? 'w-72' : 'w-64'} ${moreHeight ? 'h-24' : 'h-12'}
-          ${animationClose ? 'animate-fade-out-left ' : ''}
+          ${animationClose ? 'animate-fade-out' : ''}
           toast-bg relative shadow-custom mb-2
         `}
         onMouseEnter={handlerMouseEnter}

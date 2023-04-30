@@ -69,7 +69,7 @@ export const App = () => {
                 return (
                   <option
                     key={`option-${dir.value}`}
-                    value={dir.value}
+                    value={dir.direction}
                   >
                     {dir.message}
                   </option>
