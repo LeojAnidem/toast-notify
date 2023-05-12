@@ -3,7 +3,6 @@ import { ToastContext } from './context/ToastProvider.jsx'
 
 import { ALERT_TYPES, POS } from './propTypes/propTypes.jsx'
 import { fnOneSetDeep, fnSet } from './utils/hookManager.js'
-
 import { ListOfToasts } from './components/ListOfToasts.jsx'
 
 export const App = () => {
@@ -16,7 +15,7 @@ export const App = () => {
     }
   }
 
-  const { addToast, toastArr } = useContext(ToastContext)
+  const { toastArr, addToast } = useContext(ToastContext)
   const [toast, setToast] = useState(defaultValues)
 
   const { label, type, position } = toast
@@ -119,7 +118,7 @@ export const App = () => {
           +
         </button>
       </form>
-      <ListOfToasts toastArr={toastArr} position={{ ...position }} />
+      <ListOfToasts toastArr={toastArr} position={position} />
     </div>
   )
 }
