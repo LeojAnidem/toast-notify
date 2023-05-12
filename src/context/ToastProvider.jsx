@@ -21,6 +21,7 @@ export const ToastProvider = ({ children }) => {
       autoClose: autoClose ?? true,
       fnClose: () => removeToast(id)
     }
+
     setToastArr(prev => ([...prev, toast]))
   }
 
