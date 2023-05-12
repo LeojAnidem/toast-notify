@@ -1,17 +1,9 @@
-import PropTypes from 'prop-types'
 import { useEffect, useRef, useState } from 'react'
 import { fnSet } from '../utils/hookManager'
+import { colorValueType, toastyDefaultProps, toastyPropTypes } from '../propTypes/propTypes'
 
-const getTypeVal = (type) => {
-  switch (type) {
-    case 'success': return 'bg-green-500'
-    case 'error': return 'bg-red-500'
-    default: return 'bg-green-500'
-  }
-}
-
-export const Toasty = ({ label, type, autoClose }) => {
-  const selectType = getTypeVal(type)
+export const Toasty = ({ label, type, autoClose, fnClose }) => {
+  const selectType = colorValueType(type)
 
   // hover Settings
   const [hoverConfig, setHoverConfig] = useState({
@@ -39,8 +31,8 @@ export const Toasty = ({ label, type, autoClose }) => {
   const clearTimer = () => clearInterval(timerIntervalRef.current)
   const timer = () => {
     if (timeLeft < 0) {
-      clearTimer()
       setValCloseCfg('isClose', true)
+      clearTimer()
     } else {
       timerIntervalRef.current = setInterval(() => {
         setValCloseCfg('timeLeft', timeLeft - 1)
@@ -51,7 +43,7 @@ export const Toasty = ({ label, type, autoClose }) => {
   }
 
   useEffect(() => {
-    if (autoClose && !isClose) timer()
+    (autoClose && !isClose) ? timer() : fnClose()
     return () => clearTimer()
   }, [timeLeft, isClose])
   // -----------------------------------------
@@ -61,6 +53,7 @@ export const Toasty = ({ label, type, autoClose }) => {
     setTimeout(() => {
       clearTimer()
       setValCloseCfg('isClose', true)
+      fnClose()
     }, 1000)
   }
 
@@ -121,14 +114,5 @@ export const Toasty = ({ label, type, autoClose }) => {
   )
 }
 
-Toasty.propTypes = {
-  label: PropTypes.string,
-  type: PropTypes.oneOf(['success', 'error']),
-  autoClose: PropTypes.bool
-}
-
-Toasty.defaultProps = {
-  label: 'Lorem ipsum',
-  type: 'success',
-  autoClose: false
-}
+Toasty.propTypes = toastyPropTypes
+Toasty.defaultProps = toastyDefaultProps

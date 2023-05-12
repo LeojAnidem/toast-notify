@@ -4,6 +4,12 @@ export default {
     './index.html',
     './src/**/*.{js,ts,jsx,tsx}'
   ],
+  safelist: [
+    'top-2',
+    'bottom-2',
+    'left-2',
+    'right-2'
+  ],
   theme: {
     extend: {
       boxShadow: {
