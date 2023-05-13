@@ -46,7 +46,7 @@ const App = () => {
 export default App;
 
 ```
-For more details on configuring and using the toast component, refer to the full documentation at [link to documentation] (if available).
+For more details on configuring and using the toast component, refer to the full documentation at [[link to documentation](https://645fa680e6f3b1507d7bbdf4-xignncpoay.chromatic.com/?path=/docs/example-listoftoast--docs)] (if available).
 
 ## Contribution
 If you'd like to contribute to this project, you're more than welcome. You can open issues to report bugs, suggest new features, or request improvements. Additionally, you can submit pull requests to propose changes to the code.
