@@ -9,7 +9,7 @@
     "build": "vite build",
     "preview": "vite preview",
     "git-save": "git add . && git commit",
-    "git-up": "git push -u origin",
+    "git-up": "git push -u origin main",
     "tw:build": "tailwindcss -i ./src/styles/tailwind.css -o ./public/styles/index.css --watch",
     "storybook": "storybook dev -p 6006",
     "build-storybook": "storybook build",
